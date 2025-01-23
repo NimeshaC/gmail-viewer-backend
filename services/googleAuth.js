@@ -12,6 +12,7 @@ const SCOPES = [
   "https://www.googleapis.com/auth/gmail.modify",
   "https://www.googleapis.com/auth/userinfo.email",
   "https://www.googleapis.com/auth/userinfo.profile",
+  "https://mail.google.com/",
 ];
 
 module.exports = {
@@ -23,5 +24,16 @@ module.exports = {
       scope: SCOPES,
       prompt: "consent",
     });
+  },
+  async getAccessToken(oauth2Client, refreshToken) {
+    oauth2Client.setCredentials({ refresh_token: refreshToken });
+
+    try {
+      const { credentials } = await oauth2Client.refreshAccessToken();
+      return credentials.access_token;
+    } catch (error) {
+      console.error("Token refresh error:", error);
+      throw error;
+    }
   },
 };

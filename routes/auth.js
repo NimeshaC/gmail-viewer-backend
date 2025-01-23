@@ -3,7 +3,6 @@ const router = express.Router();
 const { getAuthUrl } = require("../services/googleAuth");
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
-const { auth } = require("googleapis/build/src/apis/abusiveexperiencereport");
 const { google } = require("googleapis");
 require("dotenv").config();
 
